@@ -1,0 +1,193 @@
+/* ===== BARRE DE NAVIGATION MODERNE AGRISMART ===== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(180deg, #f8fafb 0%, #f2f6f8 100%);
+    border-right: 1px solid #e1e8ed;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem 1.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #f8fafb 0%, #eef4f7 100%);
+    border-bottom: 1px solid #e8f0f5;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-logo {
+    font-size: 1.8rem;
+    color: #2ecc71;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2ecc71;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.sidebar-nav {
+    padding: 0 1rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    border: none;
+    background: transparent;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.08) 0%, rgba(46, 204, 113, 0.12) 100%);
+    color: #2ecc71;
+    transform: translateX(2px);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
+    font-weight: 600;
+}
+
+.nav-link i {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.nav-link span {
+    flex: 1;
+}
+
+.nav-link.active i,
+.nav-link.active span {
+    color: white;
+    opacity: 1;
+}
+
+.nav-link:hover i {
+    opacity: 1;
+}
+
+/* ===== ANIMATIONS ET EFFETS ===== */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+    border-radius: 0 2px 2px 0;
+    transition: height 0.3s ease;
+}
+
+.nav-link.active::before {
+    height: 100%;
+}
+
+.nav-link:hover::before {
+    height: 60%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .sidebar-header {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .sidebar-nav {
+        padding: 0 0.75rem;
+    }
+}
+
+/* ===== MAIN CONTENT ADJUSTMENT ===== */
+.main-content {
+    margin-left: 260px;
+    padding: 1.5rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fafbfc 0%, #f4f7fa 100%);
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}
+
+/* ===== SCROLLBAR MODERNE ===== */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f5f8;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c1c8cd 0%, #a8b2b9 100%);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a8b2b9 0%, #95a1a8 100%);
+}

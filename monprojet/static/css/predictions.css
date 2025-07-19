@@ -1,0 +1,860 @@
+/* ===== PAGE PRÉDICTIONS IA AGRISMART ===== */
+
+/* Variables cohérentes avec le thème AgriSmart */
+:root {
+    --ai-primary: #9b59b6;
+    --ai-secondary: #8e44ad;
+    --ai-light: #e8d5f2;
+    --prediction-green: #2ecc71;
+    --prediction-orange: #f39c12;
+    --prediction-red: #e74c3c;
+    --prediction-blue: #3498db;
+    --soil-primary: #27ae60;
+    --soil-secondary: #2ecc71;
+    --air-primary: #3498db;
+    --air-secondary: #2980b9;
+}
+
+/* ===== HEADER ===== */
+.predictions-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+    border-bottom: 2px solid #e8f0f5;
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.05), rgba(142, 68, 173, 0.1));
+    border-radius: 12px;
+}
+
+.predictions-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ai-primary);
+    margin-bottom: 0.5rem;
+}
+
+.predictions-header h1 i {
+    margin-right: 1rem;
+    color: var(--ai-secondary);
+}
+
+.predictions-header .subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* ===== SÉLECTION DE PÉRIODE ===== */
+.period-selection-section {
+    margin-bottom: 2rem;
+}
+
+.period-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+    padding: 2rem;
+    text-align: center;
+}
+
+.period-card h3 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.3rem;
+    color: var(--ai-primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.period-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.period-selector label {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.period-select {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    background: white;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 300px;
+    text-align: center;
+}
+
+.period-select:focus {
+    outline: none;
+    border-color: var(--ai-primary);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+.period-select option:disabled {
+    color: #bdc3c7;
+    font-style: italic;
+}
+
+/* ===== CONDITIONS ACTUELLES GLOBALES ===== */
+.current-conditions-global {
+    margin-bottom: 2rem;
+}
+
+.conditions-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+    padding: 2rem;
+}
+
+.conditions-card h3 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.3rem;
+    color: var(--prediction-green);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.condition-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8fafb;
+    border-radius: 8px;
+    border: 1px solid #e8f0f5;
+}
+
+.condition-label {
+    font-weight: 500;
+    color: #7f8c8d;
+}
+
+.condition-value {
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+/* ===== GRILLE DES PRÉDICTIONS (CÔTE À CÔTE) ===== */
+.predictions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.prediction-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Colonnes spécifiques */
+.soil-column {
+    /* Colonne de gauche pour le sol */
+}
+
+.air-column {
+    /* Colonne de droite pour l'air */
+}
+
+.prediction-config {
+    margin-bottom: 0;
+}
+
+.config-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+    overflow: hidden;
+}
+
+.config-header {
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+.config-header.soil {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+}
+
+.config-header.air {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+}
+
+.config-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.config-header h3 i {
+    margin-right: 0.75rem;
+}
+
+.config-content {
+    padding: 2rem;
+}
+
+/* Bouton de prédiction */
+.predict-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+}
+
+.predict-btn:active {
+    transform: translateY(0);
+}
+
+.predict-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.predict-btn i {
+    font-size: 1.2rem;
+}
+
+.predict-btn.soil-btn {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.predict-btn.soil-btn:hover {
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+}
+
+.predict-btn.air-btn {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.predict-btn.air-btn:hover {
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.prediction-info {
+    margin-bottom: 1.5rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* ===== RÉSULTATS DE PRÉDICTION ===== */
+.prediction-results {
+    margin-bottom: 0;
+}
+
+.results-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+    overflow: hidden;
+    animation: slideIn 0.5s ease;
+}
+
+.results-header {
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results-header.soil {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+}
+
+.results-header.air {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+}
+
+.results-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.results-header h3 i {
+    margin-right: 0.75rem;
+}
+
+.prediction-date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.results-content {
+    padding: 2rem;
+}
+
+.prediction-main {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(46, 204, 113, 0.05);
+    border-radius: 12px;
+    border: 2px solid rgba(46, 204, 113, 0.2);
+}
+
+.prediction-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.prediction-icon.bon {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.prediction-icon.moyen {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.prediction-icon.mauvais {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* Styles pour l'humidité du sol */
+.prediction-icon.tres_sec {
+    background: linear-gradient(135deg, var(--prediction-red), #c0392b);
+}
+
+.prediction-icon.assez_sec {
+    background: linear-gradient(135deg, var(--prediction-orange), #d35400);
+}
+
+.prediction-icon.humide {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+}
+
+.prediction-icon.tres_humide {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+}
+
+.prediction-info {
+    flex: 1;
+}
+
+.prediction-title {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.prediction-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.prediction-value.bon {
+    color: var(--prediction-green);
+}
+
+.prediction-value.moyen {
+    color: var(--prediction-orange);
+}
+
+.prediction-value.mauvais {
+    color: var(--prediction-red);
+}
+
+/* Styles pour l'humidité du sol */
+.prediction-value.tres_sec {
+    color: var(--prediction-red);
+}
+
+.prediction-value.assez_sec {
+    color: var(--prediction-orange);
+}
+
+.prediction-value.humide {
+    color: var(--soil-primary);
+}
+
+.prediction-value.tres_humide {
+    color: var(--air-primary);
+}
+
+.prediction-confidence {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.prediction-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8fafb;
+    border-radius: 8px;
+    border: 1px solid #e8f0f5;
+}
+
+.detail-item i {
+    color: var(--ai-primary);
+    font-size: 1.1rem;
+}
+
+/* ===== ALERTES PRÉDICTIVES ===== */
+.predictive-alerts {
+    margin-bottom: 2rem;
+}
+
+.alerts-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+}
+
+.alerts-header {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+.alerts-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.alerts-header h3 i {
+    margin-right: 0.75rem;
+}
+
+.alerts-content {
+    padding: 1.5rem 2rem;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid;
+}
+
+.alert-item.danger {
+    background: rgba(231, 76, 60, 0.1);
+    border-left-color: #e74c3c;
+}
+
+.alert-item.warning {
+    background: rgba(243, 156, 18, 0.1);
+    border-left-color: #f39c12;
+}
+
+.alert-item.info {
+    background: rgba(52, 152, 219, 0.1);
+    border-left-color: #3498db;
+}
+
+.alert-item.success {
+    background: rgba(46, 204, 113, 0.1);
+    border-left-color: #2ecc71;
+}
+
+.alert-item i {
+    font-size: 1.2rem;
+}
+
+.alert-item.danger i {
+    color: #e74c3c;
+}
+
+.alert-item.warning i {
+    color: #f39c12;
+}
+
+.alert-item.info i {
+    color: #3498db;
+}
+
+.alert-item.success i {
+    color: #2ecc71;
+}
+
+.alert-placeholder,
+.recommendation-placeholder,
+.history-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: #7f8c8d;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ===== RECOMMANDATIONS ===== */
+.treatment-recommendations {
+    margin-bottom: 2rem;
+}
+
+.recommendations-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+}
+
+.recommendations-header {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+.recommendations-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.recommendations-header h3 i {
+    margin-right: 0.75rem;
+}
+
+.recommendations-content {
+    padding: 1.5rem 2rem;
+}
+
+.recommendation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(46, 204, 113, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(46, 204, 113, 0.2);
+    margin-bottom: 1rem;
+}
+
+.recommendation-item i {
+    color: var(--prediction-green);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+}
+
+.recommendation-content {
+    flex: 1;
+}
+
+.recommendation-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.recommendation-text {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* ===== HISTORIQUE ===== */
+.prediction-history {
+    margin-bottom: 2rem;
+}
+
+.history-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e8f0f5;
+}
+
+.history-header {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.history-header h3 i {
+    margin-right: 0.75rem;
+}
+
+.clear-history-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-history-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.history-content {
+    padding: 1.5rem 2rem;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8fafb;
+    border-radius: 8px;
+    border: 1px solid #e8f0f5;
+    margin-bottom: 0.75rem;
+}
+
+.history-time {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.history-prediction {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.history-prediction.bon {
+    color: var(--prediction-green);
+}
+
+.history-prediction.moyen {
+    color: var(--prediction-orange);
+}
+
+.history-prediction.mauvais {
+    color: var(--prediction-red);
+}
+
+/* ===== MODAL DE CHARGEMENT ===== */
+.loading-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-spinner i {
+    font-size: 2.5rem;
+    color: white;
+    animation: rotate 1s linear infinite;
+}
+
+.loading-content h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.loading-content p {
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e8f0f5;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: progress 3s ease-in-out infinite;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 70%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .predictions-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .prediction-column {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .predictions-header h1 {
+        font-size: 2rem;
+    }
+
+    .predictions-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .conditions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .config-content,
+    .results-content,
+    .alerts-content,
+    .recommendations-content,
+    .history-content {
+        padding: 1.5rem;
+    }
+
+    .prediction-main {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .prediction-details {
+        grid-template-columns: 1fr;
+    }
+
+    .history-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .period-select {
+        min-width: 250px;
+    }
+} 

@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - AgriSmart</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h1>AgriSmart</h1>
+                <p class="hero-subtitle">Solution intelligente de monitoring agricole</p>
+                <p class="hero-description">
+                    Révolutionnez votre agriculture avec notre système de surveillance environnementale intelligent, 
+                    conçu spécialement pour les exploitations agricoles de la République Démocratique du Congo.
+                </p>
+            </div>
+        </section>
+
+        <!-- À propos du projet -->
+        <section class="about-project">
+            <div class="section-header">
+                <h2><i class="fas fa-info-circle"></i> À propos du projet</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead-text">
+                        AgriSmart est une solution de monitoring agricole de nouvelle génération qui combine 
+                        l'Internet des Objets (IoT), l'Intelligence Artificielle et les technologies web modernes 
+                        pour offrir aux agriculteurs congolais un outil puissant d'optimisation de leurs cultures.
+                    </p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <h3>Surveillance Climatique</h3>
+                            <p>Monitoring en temps réel de la température, de l'humidité de l'air et du sol pour optimiser les conditions de croissance.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>Intelligence Artificielle</h3>
+                            <p>Algorithmes prédictifs pour anticiper les besoins d'irrigation et les traitements phytosanitaires.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Accès Mobile</h3>
+                            <p>Interface web responsive accessible depuis smartphone, tablette ou ordinateur, partout en RDC.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Analyse Avancée</h3>
+                            <p>Tableaux de bord intelligents avec graphiques, statistiques et recommandations personnalisées.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <h3>Qualité de l'Air</h3>
+                            <p>Surveillance de la qualité de l'air pour prévenir les maladies fongiques et parasitaires.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h3>Gestion de l'Eau</h3>
+                            <p>Optimisation de l'irrigation basée sur l'humidité réelle du sol et les prédictions météorologiques.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Aide - Guide d'utilisation -->
+        <section class="help-section">
+            <div class="section-header">
+                <h2><i class="fas fa-question-circle"></i> Guide d'utilisation</h2>
+                <p>Découvrez comment utiliser AgriSmart pour optimiser votre exploitation agricole</p>
+            </div>
+
+            <!-- Prérequis -->
+            <div class="prerequisites">
+                <h3><i class="fas fa-exclamation-triangle"></i> Prérequis importants</h3>
+                <div class="prereq-grid">
+                    <div class="prereq-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Localisation</strong>
+                            <p>Vous devez être en République Démocratique du Congo pour utiliser nos services optimisés.</p>
+                        </div>
+                    </div>
+                    <div class="prereq-item">
+                        <i class="fas fa-microchip"></i>
+                        <div>
+                            <strong>Équipement AgriSensor</strong>
+                            <p>Dispositif IoT contenant les capteurs de température, humidité et qualité de l'air.</p>
+                        </div>
+                    </div>
+                    <div class="prereq-item">
+                        <i class="fas fa-wifi"></i>
+                        <div>
+                            <strong>Connectivité</strong>
+                            <p>Connexion WiFi ou Bluetooth pour la transmission des données en temps réel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étapes d'utilisation -->
+            <div class="steps-container">
+                <h3><i class="fas fa-list-ol"></i> Étapes d'installation et d'utilisation</h3>
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-box"></i> Acquisition de l'équipement AgriSensor</h4>
+                        <p>
+                            Procurez-vous le dispositif AgriSensor, spécialement conçu pour les conditions agricoles congolaises. 
+                            Ce boîtier étanche contient :
+                        </p>
+                        <ul>
+                            <li>Capteur de température et l'humidité du sol (DHT22)</li>
+                            <li>Capteur d'humidité du sol </li>
+                            <li>Capteur de qualité de l'air,particules et gaz (MQ-135)</li>
+                            <li>Module ESP32 avec WiFi et Bluetooth intégrés</li>
+                            <li>Batterie longue durée avec</li>
+                            <li>Buzze d'alerte</li>
+                            <li>Led electroluminescente pour les signalisation</li>     
+                            <li>Ecran LCD pour la visualisation des données du capteur en temps réel</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-map-marked-alt"></i> Installation sur votre exploitation</h4>
+                        <p>
+                            Installez l'AgriSensor dans votre champ ou serre en suivant ces recommandations :
+                        </p>
+                        <ul>
+                            <li>Placez le capteur à 1,5m de hauteur pour les mesures d'air</li>
+                            <li>Enfoncez la sonde d'humidité à 15-20cm de profondeur</li>
+                            <li>Évitez les zones d'ombre permanente ou trop exposées</li>
+                            <li>Assurez-vous que le panneau solaire soit orienté vers le sud</li>
+                            <li>Vérifiez la couverture réseau WiFi ou activez le Bluetooth</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-user-plus"></i> Création de votre compte AgriSmart</h4>
+                        <p>
+                            Créez votre compte personnel sur la plateforme AgriSmart :
+                        </p>
+                        <ul>
+                            <li>Rendez-vous sur le portail d'inscription AgriSmart</li>
+                            <li>Renseignez vos informations personnelles et agricoles</li>
+                            <li>Précisez la localisation de votre exploitation en RDC</li>
+                            <li>Indiquez le type de cultures que vous pratiquez</li>
+                            <li>Confirmez votre email et activez votre compte</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-link"></i> Connexion de l'appareil</h4>
+                        <p>
+                            Connectez votre AgriSensor à votre compte :
+                        </p>
+                        <ul>
+                            <li><strong>Via WiFi :</strong> Configurez le réseau WiFi dans les paramètres du capteur</li>
+                            <li><strong>Via Bluetooth :</strong> Appairez votre smartphone avec l'AgriSensor</li>
+                            <li>Saisissez le code d'appairage unique de votre dispositif</li>
+                            <li>Vérifiez que le statut de connexion passe au vert</li>
+                            <li>Effectuez un test de transmission de données</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-power-off"></i> Démarrage du monitoring</h4>
+                        <p>
+                            Activez la surveillance continue de votre exploitation :
+                        </p>
+                        <ul>
+                            <li>Allumez l'AgriSensor en appuyant sur le bouton principal</li>
+                            <li>Attendez l'initialisation complète (LED verte fixe)</li>
+                            <li>Vérifiez la réception des premières données sur votre tableau de bord</li>
+                            <li>Configurez vos seuils d'alerte personnalisés</li>
+                            <li>Activez les notifications push sur votre téléphone</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4><i class="fas fa-chart-line"></i> Utilisation quotidienne</h4>
+                        <p>
+                            Exploitez pleinement les fonctionnalités d'AgriSmart :
+                        </p>
+                        <ul>
+                            <li><strong>Dashboard :</strong> Consultez vos données en temps réel</li>
+                            <li><strong>Prédictions IA :</strong> Anticipez les besoins d'irrigation et traitements</li>
+                            <li><strong>Alertes :</strong> Recevez des notifications en cas de conditions critiques</li>
+                            <li><strong>Historique :</strong> Analysez l'évolution de vos cultures</li>
+                            <li><strong>Statistiques :</strong> Optimisez vos pratiques grâce aux données</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h3><i class="fas fa-question-circle"></i> Questions fréquentes</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>Quelle est l'autonomie de l'AgriSensor ?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'AgriSensor dispose d'une autonomie de 7 jours en mode continu et de 30 jours en mode économie. Le panneau solaire intégré assure une recharge automatique.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>À quelle fréquence les données sont-elles mises à jour ?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Les mesures sont effectuées toutes les 5 minutes et transmises en temps réel. Vous pouvez ajuster cette fréquence selon vos besoins.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>L'AgriSensor résiste-t-il aux intempéries ?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, l'AgriSensor est certifié IP65, résistant à la pluie, à la poussière et aux variations de température tropicales de la RDC.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>Puis-je connecter plusieurs capteurs ?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolument ! Vous pouvez connecter jusqu'à 10 AgriSensors par compte pour surveiller différentes zones de votre exploitation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>Les prédictions IA sont-elles fiables ?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nos modèles d'IA sont entraînés sur des données climatiques spécifiques à la RDC avec une précision de 85-90%. Les recommandations s'améliorent avec le temps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Technologies -->
+        <section class="tech-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cogs"></i> Technologies utilisées</h2>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Django & Python</h3>
+                    <p>Framework web robuste pour le backend et l'API REST</p>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>ESP32 IoT</h3>
+                    <p>Microcontrôleur WiFi/Bluetooth pour la collecte de données</p>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Machine Learning</h3>
+                    <p>Algorithmes prédictifs pour l'agriculture de précision</p>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <h3>JavaScript moderne</h3>
+                    <p>Interface utilisateur interactive et responsive</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact/Développeur -->
+        <section class="developer-section">
+            <div class="developer-card">
+                <div class="developer-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="developer-info">
+                    <h3>Développé par Débuze David</h3>
+                    <p class="developer-title">Ingénieur roboticien, Spécialiste IoT et IA</p>
+                    <p class="developer-description">
+                        Passionné par l'innovation technologique au service de l'agriculture africaine. 
+                        Spécialisé dans le développement d'applications IoT et d'intelligence artificielle 
+                        pour l'optimisation agricole en République Démocratique du Congo.
+                    </p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:daviddebuze020@gmail.com">daviddebuze020@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kinshasa, République Démocratique du Congo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Support -->
+        <section class="support-section">
+            <div class="support-content">
+                <h2><i class="fas fa-headset"></i> Support technique</h2>
+                <p>Notre équipe est disponible pour vous accompagner dans l'utilisation d'AgriSmart</p>
+                
+                <div class="support-options">
+                    <div class="support-option">
+                        <i class="fas fa-phone"></i>
+                        <h3>Assistance téléphonique</h3>
+                        <p>Lundi - Vendredi : 8h - 18h</p>
+                        <strong>+243 XXX XXX XXX</strong>
+                    </div>
+                    
+                    <div class="support-option">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Support par email</h3>
+                        <p>Réponse sous 24h ouvrées</p>
+                        <strong>support@agrismart.cd</strong>
+                    </div>
+                    
+                    <div class="support-option">
+                        <i class="fas fa-comments"></i>
+                        <h3>Chat en ligne</h3>
+                        <p>Assistance immédiate</p>
+                        <strong>Disponible 24h/7j</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/about.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques Avancées - AgriSmart</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stats.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stats.v2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <!-- Injection des données JSON pour les graphiques -->
+    <script id="mesures-data" type="application/json">
+        {{ mesures_json|safe }}
+    </script>
+    <script id="soil-distribution" type="application/json">
+        {{ soil_dist|safe }}
+    </script>
+    
+    <div class="main-content">
+        <!-- En-tête -->
+        <header class="stats-header">
+            <h1><i class="fas fa-chart-bar"></i> Statistiques Avancées</h1>
+            <p class="subtitle">Analyses détaillées et tendances des données agricoles</p>
+        </header>
+
+        <!-- Vue d'ensemble -->
+        <section class="stats-overview">
+            <div class="overview-card total-records">
+                <div class="card-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-value">{{ total_mesures }}</div>
+                    <div class="card-label">Mesures Totales</div>
+                </div>
+            </div>
+
+            <div class="overview-card avg-humidity">
+                <div class="card-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-value">{{ avg_humidite_sol }}%</div>
+                    <div class="card-label">Humidité Sol Moyenne</div>
+                </div>
+            </div>
+
+            <div class="overview-card avg-temp">
+                <div class="card-icon">
+                    <i class="fas fa-temperature-high"></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-value">{{ avg_temperature }}°C</div>
+                    <div class="card-label">Température Moyenne</div>
+                </div>
+            </div>
+
+            <div class="overview-card data-quality">
+                <div class="card-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-value">{{ data_quality }}%</div>
+                    <div class="card-label">Qualité des Données</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grille des graphiques -->
+        <div class="charts-grid">
+            <!-- Distribution Humidité Sol -->
+            <div class="chart-section">
+                <h2><i class="fas fa-chart-pie"></i> Distribution Humidité Sol</h2>
+                <div class="chart-container">
+                    <canvas id="soilDistChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tendances Journalières -->
+            <div class="chart-section">
+                <h2><i class="fas fa-chart-line"></i> Tendances Journalières</h2>
+                <div class="chart-container">
+                    <canvas id="dailyTrendsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Corrélation Température/Humidité -->
+            <div class="chart-section">
+                <h2><i class="fas fa-random"></i> Corrélation Température/Humidité</h2>
+                <div class="chart-container">
+                    <canvas id="correlationChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Qualité Air par Période -->
+            <div class="chart-section">
+                <h2><i class="fas fa-wind"></i> Qualité Air par Période</h2>
+                <div class="chart-container">
+                    <canvas id="airQualityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analyses Détaillées -->
+        <section class="detailed-analysis">
+            <h2><i class="fas fa-microscope"></i> Analyses Détaillées</h2>
+            
+            <div class="analysis-grid">
+                <!-- Statistiques par Période -->
+                <div class="analysis-card period-stats">
+                    <h3>Statistiques par Période</h3>
+                    <div class="stats-table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Période</th>
+                                    <th>Humidité Sol</th>
+                                    <th>Température</th>
+                                    <th>Qualité Air</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matin</td>
+                                    <td>{{ period_stats.matin.humidite_sol }}%</td>
+                                    <td>{{ period_stats.matin.temperature }}°C</td>
+                                    <td>{{ period_stats.matin.qualite_air }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Midi</td>
+                                    <td>{{ period_stats.midi.humidite_sol }}%</td>
+                                    <td>{{ period_stats.midi.temperature }}°C</td>
+                                    <td>{{ period_stats.midi.qualite_air }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Soir</td>
+                                    <td>{{ period_stats.soir.humidite_sol }}%</td>
+                                    <td>{{ period_stats.soir.temperature }}°C</td>
+                                    <td>{{ period_stats.soir.qualite_air }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Alertes Fréquentes -->
+                <div class="analysis-card frequent-alerts">
+                    <h3>Alertes les Plus Fréquentes</h3>
+                    <div class="alerts-list">
+                        {% for alert in frequent_alerts %}
+                        <div class="alert-item {{ alert.type }}">
+                            <i class="fas {{ alert.icon }}"></i>
+                            <div class="alert-details">
+                                <div class="alert-title">{{ alert.title }}</div>
+                                <div class="alert-frequency">{{ alert.frequency }}% des mesures</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Records -->
+                <div class="analysis-card records">
+                    <h3>Records</h3>
+                    <div class="records-grid">
+                        <div class="record-item">
+                            <div class="record-label">Température Max</div>
+                            <div class="record-value">{{ records.temp_max }}°C</div>
+                            <div class="record-date">{{ records.temp_max_date }}</div>
+                        </div>
+                        <div class="record-item">
+                            <div class="record-label">Température Min</div>
+                            <div class="record-value">{{ records.temp_min }}°C</div>
+                            <div class="record-date">{{ records.temp_min_date }}</div>
+                        </div>
+                        <div class="record-item">
+                            <div class="record-label">Humidité Sol Max</div>
+                            <div class="record-value">{{ records.soil_max }}%</div>
+                            <div class="record-date">{{ records.soil_max_date }}</div>
+                        </div>
+                        <div class="record-item">
+                            <div class="record-label">Humidité Sol Min</div>
+                            <div class="record-value">{{ records.soil_min }}%</div>
+                            <div class="record-date">{{ records.soil_min_date }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tendances -->
+                <div class="analysis-card trends">
+                    <h3>Tendances Actuelles</h3>
+                    <div class="trends-list">
+                        {% for trend in current_trends %}
+                        <div class="trend-item">
+                            <i class="fas {{ trend.icon }}"></i>
+                            <div class="trend-details">
+                                <div class="trend-title">{{ trend.title }}</div>
+                                <div class="trend-value">{{ trend.value }}</div>
+                                <div class="trend-change {{ trend.direction }}">
+                                    <i class="fas fa-arrow-{{ trend.direction }}"></i>
+                                    {{ trend.change }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/stats.v2.js' %}"></script>
+</body>
+</html>

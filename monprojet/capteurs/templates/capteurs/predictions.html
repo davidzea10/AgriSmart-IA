@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédictions IA - AgriSmart</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/predictions.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <div class="main-content">
+        <!-- Header -->
+        <header class="predictions-header">
+            <h1><i class="fas fa-brain"></i> Prédictions IA</h1>
+            <p class="subtitle">Intelligence artificielle pour anticiper les traitements phytosanitaires et l'irrigation</p>
+        </header>
+
+        <!-- Sélection de Période -->
+        <section class="period-selection-section">
+            <div class="period-card">
+                <h3><i class="fas fa-calendar-alt"></i> Période de Prédiction</h3>
+                <div class="period-selector">
+                    <label for="prediction-period">Sélectionnez la période :</label>
+                    <select id="prediction-period" class="period-select">
+                        <option value="demain" selected>Demain</option>
+                        <option value="semaine" disabled>La semaine (Service pas encore disponible)</option>
+                        <option value="mois" disabled>Le mois (Service pas encore disponible)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conditions Actuelles Globales -->
+        <section class="current-conditions-global">
+            <div class="conditions-card">
+                <h3><i class="fas fa-thermometer-half"></i> Conditions Actuelles</h3>
+                <div class="conditions-grid">
+                    <div class="condition-item">
+                        <span class="condition-label">Température:</span>
+                        <span class="condition-value" id="current-temp">--°C</span>
+                    </div>
+                    <div class="condition-item">
+                        <span class="condition-label">Humidité Air:</span>
+                        <span class="condition-value" id="current-humidity">--%</span>
+                    </div>
+                    <div class="condition-item">
+                        <span class="condition-label">Humidité Sol:</span>
+                        <span class="condition-value" id="current-soil">--%</span>
+                    </div>
+                    <div class="condition-item">
+                        <span class="condition-label">Qualité Air:</span>
+                        <span class="condition-value" id="current-air">--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section des Prédictions (Sol à Gauche, Air à Droite) -->
+        <section class="predictions-grid">
+            <!-- Prédiction Humidité Sol (Gauche) -->
+            <div class="prediction-column soil-column">
+                <div class="prediction-config soil-prediction">
+                    <div class="config-card">
+                        <div class="config-header soil">
+                            <h3><i class="fas fa-seedling"></i> Prédiction Humidité du Sol</h3>
+                        </div>
+                        
+                        <div class="config-content">
+                            <div class="prediction-info">
+                                <p>Anticiper les besoins d'irrigation pour optimiser l'arrosage des cultures.</p>
+                            </div>
+
+                            <button class="predict-btn soil-btn" onclick="startSoilPrediction()">
+                                <i class="fas fa-tint"></i>
+                                <span>Prédire l'Humidité du Sol</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Résultats Humidité Sol -->
+                <div class="prediction-results soil-results" id="soil-results" style="display: none;">
+                    <div class="results-card">
+                        <div class="results-header soil">
+                            <h3><i class="fas fa-seedling"></i> Résultat Humidité du Sol</h3>
+                            <span class="prediction-date" id="soil-date">--</span>
+                        </div>
+                        
+                        <div class="results-content">
+                            <div class="prediction-main">
+                                <div class="prediction-icon" id="soil-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="prediction-info">
+                                    <div class="prediction-title">Niveau Sol Prédit</div>
+                                    <div class="prediction-value" id="soil-result">--</div>
+                                    <div class="prediction-confidence">
+                                        Confiance: <span id="soil-confidence">--%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="prediction-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Prédiction générée: <strong id="soil-time">--</strong></span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-database"></i>
+                                    <span>Basé sur: <strong>Modèle IA Sol</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prédiction Qualité Air (Droite) -->
+            <div class="prediction-column air-column">
+                <div class="prediction-config air-prediction">
+                    <div class="config-card">
+                        <div class="config-header air">
+                            <h3><i class="fas fa-wind"></i> Prédiction Qualité de l'Air</h3>
+                        </div>
+                        
+                        <div class="config-content">
+                            <div class="prediction-info">
+                                <p>Anticiper les traitements phytosanitaires pour protéger vos cultures.</p>
+                            </div>
+
+                            <button class="predict-btn air-btn" onclick="startAirPrediction()">
+                                <i class="fas fa-magic"></i>
+                                <span>Prédire la Qualité de l'Air</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Résultats Qualité Air -->
+                <div class="prediction-results air-results" id="air-results" style="display: none;">
+                    <div class="results-card">
+                        <div class="results-header air">
+                            <h3><i class="fas fa-wind"></i> Résultat Qualité de l'Air</h3>
+                            <span class="prediction-date" id="air-date">--</span>
+                        </div>
+                        
+                        <div class="results-content">
+                            <div class="prediction-main">
+                                <div class="prediction-icon" id="prediction-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="prediction-info">
+                                    <div class="prediction-title">Qualité Air Prédite</div>
+                                    <div class="prediction-value" id="prediction-result">--</div>
+                                    <div class="prediction-confidence">
+                                        Confiance: <span id="prediction-confidence">--%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="prediction-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Prédiction générée: <strong id="prediction-time">--</strong></span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-database"></i>
+                                    <span>Basé sur: <strong>Modèle IA Air</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alertes Prédictives -->
+        <section class="predictive-alerts">
+            <div class="alerts-card">
+                <div class="alerts-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Alertes Prédictives</h3>
+                </div>
+                <div class="alerts-content" id="predictive-alerts">
+                    <div class="alert-placeholder">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Aucune alerte pour le moment. Lancez une prédiction pour voir les alertes.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommandations de Traitement -->
+        <section class="treatment-recommendations">
+            <div class="recommendations-card">
+                <div class="recommendations-header">
+                    <h3><i class="fas fa-lightbulb"></i> Recommandations de Traitement</h3>
+                </div>
+                <div class="recommendations-content" id="treatment-recommendations">
+                    <div class="recommendation-placeholder">
+                        <i class="fas fa-seedling"></i>
+                        <span>Les recommandations apparaîtront après la prédiction.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historique des Prédictions -->
+        <section class="prediction-history">
+            <div class="history-card">
+                <div class="history-header">
+                    <h3><i class="fas fa-history"></i> Historique des Prédictions</h3>
+                    <button class="clear-history-btn" onclick="clearPredictionHistory()">
+                        <i class="fas fa-trash"></i> Effacer
+                    </button>
+                </div>
+                <div class="history-content" id="prediction-history">
+                    <div class="history-placeholder">
+                        <i class="fas fa-clock"></i>
+                        <span>Aucune prédiction récente</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loading-modal" class="loading-modal">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h3>Analyse IA en cours...</h3>
+            <p>Traitement des données pour prédire la qualité de l'air</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/predictions.js' %}?v={{ timestamp }}"></script>
+    <script>
+        console.log('🔄 Version JS chargée avec timestamp:', '{{ timestamp }}');
+    </script>
+</body>
+</html> 

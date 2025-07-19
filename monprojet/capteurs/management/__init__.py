@@ -1,0 +1,1 @@
+# Management module pour les commandes Django personnalisées AgriSmart 

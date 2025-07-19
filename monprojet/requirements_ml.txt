@@ -1,0 +1,8 @@
+# Dépendances minimales pour utiliser un modèle pickle AgriSmart
+numpy>=1.21.0
+
+# Optionnel : si votre modèle utilise scikit-learn
+# scikit-learn>=1.2.0
+
+# Optionnel : si vous avez besoin de pandas pour le preprocessing
+# pandas>=1.5.0 

@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des mesures</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/historique.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <div class="main-content">
+        <div class="historique-header">
+            <h1><i class="fas fa-history"></i> Historique des Données</h1>
+            <button class="export-btn" onclick="exportData()">
+                <i class="fas fa-download"></i> Exporter
+            </button>
+        </div>
+
+        <!-- Filtres -->
+        <form class="filters-section" method="get" action="{% url 'historique' %}">
+            <div class="filter-group">
+                <label for="periode-filter">Période :</label>
+                <select id="periode-filter" name="periode" class="filter-select">
+                    <option value="all" {% if periode == 'all' %}selected{% endif %}>Toutes les données</option>
+                    <option value="today" {% if periode == 'today' %}selected{% endif %}>Aujourd'hui</option>
+                    <option value="yesterday" {% if periode == 'yesterday' %}selected{% endif %}>Hier</option>
+                    <option value="week" {% if periode == 'week' %}selected{% endif %}>Cette semaine</option>
+                    <option value="month" {% if periode == 'month' %}selected{% endif %}>Ce mois</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="type-filter">Type de données :</label>
+                <select id="type-filter" name="type" class="filter-select">
+                    <option value="all" {% if type_donnee == 'all' %}selected{% endif %}>Toutes les données</option>
+                    <option value="soil_humidity" {% if type_donnee == 'soil_humidity' %}selected{% endif %}>Humidité Sol</option>
+                    <option value="temperature" {% if type_donnee == 'temperature' %}selected{% endif %}>Température</option>
+                    <option value="humidity" {% if type_donnee == 'humidity' %}selected{% endif %}>Humidité Air</option>
+                    <option value="air_quality" {% if type_donnee == 'air_quality' %}selected{% endif %}>Qualité Air</option>
+                </select>
+            </div>
+
+            <button type="submit" class="apply-filters-btn">
+                <i class="fas fa-filter"></i> Appliquer les filtres
+            </button>
+        </form>
+
+        <!-- Tableau des données -->
+        <div class="data-table-section">
+            <div class="table-container">
+                <table class="data-table" id="historique-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Humidité Sol</th>
+                            <th>Niveau Sol</th>
+                            <th>Température</th>
+                            <th>Humidité Air</th>
+                            <th>Qualité Air</th>
+                            <th>Niveau Air</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {% for mesure in mesures %}
+                        <tr>
+                            <td>{{ mesure.date_recue|date:"d/m/Y" }}</td>
+                            <td>{{ mesure.date_recue|date:"H:i:s" }}</td>
+                            <td>{{ mesure.humidite_sol }}%</td>
+                            <td>
+                                <span class="soil-status-badge {{ mesure.niveau_sol|lower }}">
+                                    {{ mesure.niveau_sol }}
+                                </span>
+                            </td>
+                            <td>{{ mesure.temperature }}°C</td>
+                            <td>{{ mesure.humidite }}%</td>
+                            <td>{{ mesure.qualite_air }}</td>
+                            <td>
+                                <span class="air-quality-badge {{ mesure.niveau_air|lower }}">
+                                    {{ mesure.niveau_air }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="no-data">Aucune donnée disponible pour les filtres sélectionnés</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if total_pages > 1 %}
+            <div class="pagination-section">
+                {% if has_previous %}
+                <a href="?page={{ previous_page }}&periode={{ periode }}&type={{ type_donnee }}" class="pagination-btn">
+                    <i class="fas fa-chevron-left"></i> Précédent
+                </a>
+                {% endif %}
+
+                <div class="pagination-numbers">
+                    {% for p in page_range %}
+                        {% if p == current_page %}
+                            <span class="pagination-current">{{ p }}</span>
+                        {% else %}
+                            <a href="?page={{ p }}&periode={{ periode }}&type={{ type_donnee }}" class="pagination-link">{{ p }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if has_next %}
+                <a href="?page={{ next_page }}&periode={{ periode }}&type={{ type_donnee }}" class="pagination-btn">
+                    Suivant <i class="fas fa-chevron-right"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal d'export -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-export"></i> Exporter les données</h3>
+                <button class="close-btn" onclick="closeExportModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Choisissez le format d'export :</p>
+                <div class="export-options">
+                    <a href="{% url 'export_historique' %}?format=csv&periode={{ periode }}&type={{ type_donnee }}" class="export-option-btn">
+                        <i class="fas fa-file-csv"></i>
+                        <span>Export CSV</span>
+                        <small>Fichier séparé par virgules</small>
+                    </a>
+                    <a href="{% url 'export_historique' %}?format=excel&periode={{ periode }}&type={{ type_donnee }}" class="export-option-btn">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Export Excel</span>
+                        <small>Fichier Excel avec format</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function exportData() {
+        document.getElementById('export-modal').style.display = 'block';
+    }
+
+    function closeExportModal() {
+        document.getElementById('export-modal').style.display = 'none';
+    }
+
+    // Fermer le modal en cliquant en dehors
+    window.onclick = function(event) {
+        const modal = document.getElementById('export-modal');
+        if (event.target === modal) {
+            closeExportModal();
+        }
+    }
+
+    // Fermer avec Echap
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeExportModal();
+        }
+    });
+    </script>
+</body>
+</html>

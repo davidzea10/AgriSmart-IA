@@ -1,0 +1,373 @@
+/* ===== STATISTIQUES AGRISMART ===== */
+
+/* En-tête */
+.stats-header {
+    background: linear-gradient(135deg, #f8fafb 0%, #eef4f7 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stats-header h1 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+}
+
+.stats-header h1 i {
+    color: #2ecc71;
+    margin-right: 0.75rem;
+}
+
+.stats-header .subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Vue d'ensemble */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.overview-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-2px);
+}
+
+.overview-card .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.total-records .card-icon {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+}
+
+.avg-humidity .card-icon {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+}
+
+.avg-temp .card-icon {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.data-quality .card-icon {
+    background: rgba(155, 89, 182, 0.1);
+    color: #9b59b6;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+}
+
+.card-label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Grille des graphiques */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-section h2 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.chart-section h2 i {
+    color: #2ecc71;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 1rem;
+}
+
+/* Légende des graphiques */
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafb;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.legend-color.tres-sec { background: #e74c3c; }
+.legend-color.assez-sec { background: #f39c12; }
+.legend-color.humide { background: #2ecc71; }
+.legend-color.tres-humide { background: #3498db; }
+
+.legend-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Analyses détaillées */
+.detailed-analysis {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.detailed-analysis h2 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin: 0 0 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.detailed-analysis h2 i {
+    color: #2ecc71;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.analysis-card {
+    background: #f8fafb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.analysis-card h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0 0 1.5rem 0;
+}
+
+/* Table des statistiques */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table th {
+    background: #f1f5f9;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.stats-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e8f0f5;
+    color: #64748b;
+}
+
+/* Liste des alertes */
+.alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: white;
+}
+
+.alert-item i {
+    font-size: 1.2rem;
+}
+
+.alert-item.warning {
+    border-left: 4px solid #f39c12;
+}
+
+.alert-item.danger {
+    border-left: 4px solid #e74c3c;
+}
+
+.alert-details {
+    flex: 1;
+}
+
+.alert-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+}
+
+.alert-frequency {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Records */
+.records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.record-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.record-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+}
+
+.record-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+}
+
+.record-date {
+    font-size: 0.8rem;
+    color: #95a5a6;
+}
+
+/* Tendances */
+.trends-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.trend-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+}
+
+.trend-item i {
+    font-size: 1.2rem;
+    color: #2ecc71;
+}
+
+.trend-details {
+    flex: 1;
+}
+
+.trend-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+}
+
+.trend-value {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 0.25rem;
+}
+
+.trend-change {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.trend-change.up {
+    color: #2ecc71;
+}
+
+.trend-change.down {
+    color: #e74c3c;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .overview-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .records-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} 

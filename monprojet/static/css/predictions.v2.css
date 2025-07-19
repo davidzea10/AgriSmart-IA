@@ -1,0 +1,152 @@
+/* ===== PRÉDICTIONS AGRISMART V2 ===== */
+
+/* Variables */
+:root {
+    --soil-primary: #27ae60;
+    --soil-secondary: #2ecc71;
+    --air-primary: #3498db;
+    --air-secondary: #2980b9;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+}
+
+/* Cartes de résultats */
+.results-card {
+    margin-bottom: 2rem;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.results-card:hover {
+    transform: translateY(-4px);
+}
+
+/* En-têtes spécifiques */
+.results-header.soil {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+.results-header.air {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+/* Icônes de prédiction */
+.prediction-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+
+/* Styles pour l'humidité du sol */
+.prediction-icon.tres_sec {
+    background: linear-gradient(135deg, var(--danger), #c0392b);
+    color: white;
+}
+
+.prediction-icon.assez_sec {
+    background: linear-gradient(135deg, var(--warning), #d35400);
+    color: white;
+}
+
+.prediction-icon.humide {
+    background: linear-gradient(135deg, var(--soil-primary), var(--soil-secondary));
+    color: white;
+}
+
+.prediction-icon.tres_humide {
+    background: linear-gradient(135deg, var(--air-primary), var(--air-secondary));
+    color: white;
+}
+
+/* Styles pour la qualité de l'air */
+.prediction-icon.mauvais {
+    background: linear-gradient(135deg, var(--danger), #c0392b);
+    color: white;
+}
+
+.prediction-icon.moyen {
+    background: linear-gradient(135deg, var(--warning), #d35400);
+    color: white;
+}
+
+.prediction-icon.bon {
+    background: linear-gradient(135deg, var(--success), var(--soil-primary));
+    color: white;
+}
+
+/* Valeurs de prédiction */
+.prediction-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.prediction-value.tres_sec { color: var(--danger); }
+.prediction-value.assez_sec { color: var(--warning); }
+.prediction-value.humide { color: var(--soil-primary); }
+.prediction-value.tres_humide { color: var(--air-primary); }
+
+.prediction-value.mauvais { color: var(--danger); }
+.prediction-value.moyen { color: var(--warning); }
+.prediction-value.bon { color: var(--success); }
+
+/* Recommandations */
+.prediction-recommendation {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+/* Message d'erreur */
+.error-message {
+    background: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results-card {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .prediction-main {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .prediction-icon {
+        margin: 0 auto 1rem;
+    }
+} 

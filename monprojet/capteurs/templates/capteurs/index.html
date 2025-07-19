@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart - Monitoring Agricole Intelligent</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <div class="main-content">
+        <!-- Header Principal -->
+        <header class="welcome-header">
+            <h1><i class="fas fa-leaf"></i> Bienvenue sur AgriSmart</h1>
+            <p class="subtitle">Système de prédiction de l'humidité du sol pour anticiper l'irrigation et de la qualité de l'air pour les traitements phytosanitaires - Surveillance environnementale intelligente pour protéger vos cultures</p>
+        </header>
+
+        <!-- Aperçu Rapide -->
+        <section class="quick-overview">
+            <h2>Aperçu Rapide des Capteurs</h2>
+            <div class="overview-cards">
+                <div class="overview-card soil-humidity">
+                    <div class="card-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value" id="soil-hum-overview">--%</div>
+                        <div class="card-label">Humidité Sol</div>
+                        <div class="card-status" id="soil-level-overview">--</div>
+                    </div>
+                </div>
+
+                <div class="overview-card temperature">
+                    <div class="card-icon">
+                        <i class="fas fa-temperature-three-quarters"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value" id="temp-overview">--°C</div>
+                        <div class="card-label">Température</div>
+                    </div>
+                </div>
+
+                <div class="overview-card air-humidity">
+                    <div class="card-icon">
+                        <i class="fas fa-droplet"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value" id="hum-overview">--%</div>
+                        <div class="card-label">Humidité Air</div>
+                    </div>
+                </div>
+
+                <div class="overview-card air-quality">
+                    <div class="card-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-value" id="air-level-overview">--</div>
+                        <div class="card-label">Qualité Air</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fonctionnalités Principales -->
+        <section class="main-features">
+            <div class="feature-card soil-monitoring">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Monitoring Humidité Sol</h3>
+                    <p>Surveillance continue de l'humidité du sol pour optimiser l'irrigation et protéger vos cultures</p>
+                    <div class="prediction-result">
+                        <span class="prediction-label">État Actuel:</span>
+                        <span class="prediction-value" id="soil-prediction">Analyse en cours...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card realtime">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Surveillance en Temps Réel</h3>
+                    <p>Suivez toutes vos données environnementales pour une agriculture de précision</p>
+                    <a href="/dashboard/" class="feature-btn">Accéder <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card predictions">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Prédictions IA Avancées</h3>
+                    <p>Intelligence artificielle pour anticiper l'irrigation et les traitements phytosanitaires</p>
+                    <div class="prediction-result">
+                        <span class="prediction-label">Recommandation Air:</span>
+                        <span class="prediction-value" id="air-prediction">Analyse en cours...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card history">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Historique Complet</h3>
+                    <p>Consultez l'historique sol et air pour optimiser vos interventions agricoles</p>
+                    <a href="/historique/" class="feature-btn">Consulter <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card soil-info">
+                <div class="feature-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Gestion de l'Irrigation</h3>
+                    <p>L'humidité du sol détermine les besoins en eau de vos cultures. Notre système vous aide à irriguer au bon moment pour maximiser les rendements.</p>
+                </div>
+            </div>
+
+            <div class="feature-card air-info">
+                <div class="feature-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Protection Phytosanitaire</h3>
+                    <p>La qualité de l'air influence les maladies fongiques et parasitaires. Anticipez les traitements pour protéger vos cultures efficacement.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide des Niveaux d'Humidité du Sol -->
+        <section class="soil-humidity-guide">
+            <h2><i class="fas fa-seedling"></i> Guide des Niveaux d'Humidité du Sol</h2>
+            <div class="guide-cards">
+                <div class="guide-card soil-dry">
+                    <div class="guide-level">Très Sec</div>
+                    <div class="guide-range">0 - 20%</div>
+                    <div class="guide-action">Irrigation urgente</div>
+                    <div class="guide-description">Stress hydrique critique - Irrigation immédiate nécessaire</div>
+                </div>
+
+                <div class="guide-card soil-moderate">
+                    <div class="guide-level">Assez Sec</div>
+                    <div class="guide-range">20 - 50%</div>
+                    <div class="guide-action">Planifier irrigation</div>
+                    <div class="guide-description">Surveillance accrue - Prévoir arrosage sous 24-48h</div>
+                </div>
+
+                <div class="guide-card soil-good">
+                    <div class="guide-level">Humide</div>
+                    <div class="guide-range">50 - 80%</div>
+                    <div class="guide-action">Conditions optimales</div>
+                    <div class="guide-description">Humidité idéale pour la croissance des cultures</div>
+                </div>
+
+                <div class="guide-card soil-wet">
+                    <div class="guide-level">Très Humide</div>
+                    <div class="guide-range">80 - 100%</div>
+                    <div class="guide-action">Surveiller drainage</div>
+                    <div class="guide-description">Risque de sur-arrosage - Vérifier le drainage</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide des Niveaux de Qualité d'Air -->
+        <section class="air-quality-guide">
+            <h2><i class="fas fa-wind"></i> Guide des Niveaux de Qualité d'Air</h2>
+            <div class="guide-cards">
+                <div class="guide-card excellent">
+                    <div class="guide-level">Excellent</div>
+                    <div class="guide-range">< 1000</div>
+                    <div class="guide-action">Aucun traitement nécessaire</div>
+                    <div class="guide-description">Conditions optimales pour les cultures</div>
+                </div>
+
+                <div class="guide-card good">
+                    <div class="guide-level">Bon</div>
+                    <div class="guide-range">1000 - 2000</div>
+                    <div class="guide-action">Surveillance préventive</div>
+                    <div class="guide-description">Conditions normales, surveillance recommandée</div>
+                </div>
+
+                <div class="guide-card average">
+                    <div class="guide-level">Moyen</div>
+                    <div class="guide-range">2000 - 3000</div>
+                    <div class="guide-action">Traitement préventif recommandé</div>
+                    <div class="guide-description">Risque modéré de développement parasitaire</div>
+                </div>
+
+                <div class="guide-card poor">
+                    <div class="guide-level">Mauvais</div>
+                    <div class="guide-range">> 3000</div>
+                    <div class="guide-action">Traitement curatif urgent</div>
+                    <div class="guide-description">Conditions favorables aux maladies</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alertes Intelligentes -->
+        <section class="intelligent-alerts">
+            <div class="alerts-header">
+                <i class="fas fa-bell"></i>
+                <h2>Alertes Intelligentes</h2>
+            </div>
+            <div class="alerts-content" id="alerts-content">
+                <div class="alert-item info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Système de monitoring opérationnel</span>
+                    <small id="system-time"></small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistiques Rapides -->
+        <section class="quick-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="total-measurements">--</div>
+                <div class="stat-label">Mesures Collectées</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="uptime">--</div>
+                <div class="stat-label">Temps de Fonctionnement</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="last-update">--</div>
+                <div class="stat-label">Dernière Mise à Jour</div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/index.v2.js' %}?v=2"></script>
+</body>
+</html>

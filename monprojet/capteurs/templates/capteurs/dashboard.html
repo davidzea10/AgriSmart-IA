@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - Monitoring Agricole</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/barre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% include 'capteurs/includes/barre.html' %}
+    
+    <div class="main-content">
+        <!-- En-tête -->
+        <header class="dashboard-header">
+            <h1><i class="fas fa-chart-line"></i> Tableau de Bord</h1>
+            <p class="subtitle">Monitoring en temps réel - Humidité du sol et qualité de l'air</p>
+        </header>
+
+        <!-- Section 1: Métriques principales -->
+        <section class="metrics-section">
+            <!-- Humidité du Sol -->
+            <div class="metric-card soil-humidity">
+                <div class="metric-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Humidité Sol</h3>
+                    <div class="metric-value" id="soil-current">--%</div>
+                    <div class="metric-change" id="soil-change">--</div>
+                    <div class="metric-avg">Niveau: <span id="soil-level">--</span></div>
+                </div>
+            </div>
+
+            <!-- Température -->
+            <div class="metric-card temperature">
+                <div class="metric-icon">
+                    <i class="fas fa-temperature-three-quarters"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Température</h3>
+                    <div class="metric-value" id="temp-current">--°C</div>
+                    <div class="metric-change" id="temp-change">--</div>
+                    <div class="metric-avg">Moyenne 24h: <span id="temp-avg">--°C</span></div>
+                </div>
+            </div>
+
+            <!-- Humidité Air -->
+            <div class="metric-card air-humidity">
+                <div class="metric-icon">
+                    <i class="fas fa-droplet"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Humidité Air</h3>
+                    <div class="metric-value" id="hum-current">--%</div>
+                    <div class="metric-change" id="hum-change">--</div>
+                    <div class="metric-avg">Moyenne 24h: <span id="hum-avg">--%</span></div>
+                </div>
+            </div>
+
+            <!-- Qualité Air -->
+            <div class="metric-card air-quality">
+                <div class="metric-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Qualité Air</h3>
+                    <div class="metric-value" id="air-current">--</div>
+                    <div class="metric-change" id="air-change">--</div>
+                    <div class="metric-avg">Indice: <span id="air-index">--</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Graphiques -->
+        <section class="charts-section">
+            <!-- Graphique Humidité Sol -->
+            <div class="chart-container">
+                <h3><i class="fas fa-seedling"></i> Évolution de l'Humidité du Sol</h3>
+                <canvas id="soilChart"></canvas>
+            </div>
+
+            <!-- Graphique Température -->
+            <div class="chart-container">
+                <h3><i class="fas fa-temperature-three-quarters"></i> Évolution de la Température</h3>
+                <canvas id="tempChart"></canvas>
+            </div>
+            
+            <!-- Graphique Humidité Air -->
+            <div class="chart-container">
+                <h3><i class="fas fa-droplet"></i> Évolution de l'Humidité Air</h3>
+                <canvas id="humChart"></canvas>
+            </div>
+            
+            <!-- Graphique Qualité Air -->
+            <div class="chart-container">
+                <h3><i class="fas fa-wind"></i> Évolution de la Qualité de l'Air</h3>
+                <canvas id="airChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 3: Dernières Mesures -->
+        <section class="data-section">
+            <h3><i class="fas fa-table"></i> Dernières Mesures</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Heure</th>
+                            <th>Humidité Sol</th>
+                            <th>Niveau Sol</th>
+                            <th>Température</th>
+                            <th>Humidité Air</th>
+                            <th>Qualité Air</th>
+                            <th>Niveau Air</th>
+                        </tr>
+                    </thead>
+                    <tbody id="measurements-table">
+                        <!-- Rempli par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Alertes Récentes -->
+        <section class="alerts-section">
+            <h3><i class="fas fa-exclamation-triangle"></i> Alertes Récentes</h3>
+            <div class="alerts-container" id="alerts-container">
+                <!-- Rempli par JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/dashboard.v2.js' %}"></script>
+</body>
+</html>
