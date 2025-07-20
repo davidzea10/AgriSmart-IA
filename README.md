@@ -4,8 +4,8 @@
 
 Bienvenue ! Ce dépôt a été généré automatiquement via GitHub Classroom pour la remise de votre projet de fin d’année **individuel**.
 
-> **Département** : [Aucun / Génie Informatique, Intelligence Artificielle, Systèmes Informatiques]  
-> **Filière** : [Aucune / Robotique / Data Science / Réseaux Informatiques / Ingénierie Logicielle / Sécurité Informatique] 
+> **Département** : [Intelligence Artificielle]  
+> **Filière** : Robotique / Data Science / Réseaux Informatiques / Ingénierie Logicielle / Sécurité Informatique] 
 > **Année académique** : 2024–2025  
 > **Encadrant** : Professeur ou Assistant [Nom de l’enseignant] / La Commission
 
